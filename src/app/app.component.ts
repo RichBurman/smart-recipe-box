@@ -1,5 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { RecipeModel } from './models';
+import { MOCK_RECIPES } from './mock-recipes';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +11,16 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  protected title = signal('My Recipe Box')
+  protected title = signal('My Recipe Box');
+  protected recipe = signal(MOCK_RECIPES[1]);
 
   protected button1() {
     console.log('First Button clicked!')
+    this.recipe.set(MOCK_RECIPES[0])
   }
 
   protected button2() {
     console.log('Second Button clicked!')
+    this.recipe.set(MOCK_RECIPES[1])
   }
 }
