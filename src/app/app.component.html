@@ -4,3 +4,8 @@
 
 <p> {{ recipe().name }}</p>
 <p>{{ recipe().description }}</p>
+
+<p>Current Number of Servings: {{ serving() }}</p>
+
+<button (click)="increment()">+</button>
+<button (click)="decrement()">-</button>
