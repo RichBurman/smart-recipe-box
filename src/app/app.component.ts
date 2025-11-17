@@ -10,4 +10,12 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   protected title = signal('My Recipe Box')
+
+  protected button1() {
+    console.log('First Button clicked!')
+  }
+
+  protected button2() {
+    console.log('Second Button clicked!')
+  }
 }
