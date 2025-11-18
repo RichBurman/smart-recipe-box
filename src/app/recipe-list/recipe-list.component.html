@@ -1,0 +1,13 @@
+<button (click)="button1()">Button 1</button>
+<button (click)="button2()">Button 2</button>
+
+<p> {{ recipe().name }}</p>
+<p>{{ recipe().description }}</p>
+<img [src]="recipe().imgUrl" [alt]="recipe().name">
+
+<p>Current Number of Servings: {{ serving() }}</p>
+
+<button (click)="increment()">+</button>
+<button (click)="decrement()">-</button>
+
+<pre> {{ adjustedIngredients() | json }}</pre>
