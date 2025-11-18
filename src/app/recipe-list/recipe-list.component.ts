@@ -1,8 +1,9 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { MOCK_RECIPES } from '../mock-recipes';
 import { RecipeDetail } from '../recipe-detail/recipe-detail.component';
 import { RecipeModel } from '../models';
 import { FormsModule } from '@angular/forms';
+import { RecipeService } from '../recipe.service';
 
 @Component({
   selector: 'app-recipe-list',
@@ -12,25 +13,32 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './recipe-list.component.css',
 })
 export class RecipeList {
- 
-  protected allRecipes = signal(MOCK_RECIPES);
-  protected activeRecipe = signal(this.allRecipes()[0]);
 
+  protected readonly recipeService = inject(RecipeService);
+
+  // We initialize `activeRecipe` with the first recipe *from* the service.
+  protected activeRecipe = signal<RecipeModel>(this.recipeService.allRecipes()[0]);
+
+  // This method updates our local `activeRecipe` signal.
   protected setActiveRecipe(recipe: RecipeModel): void {
     this.activeRecipe.set(recipe);
   }
 
-    protected readonly searchTerm = signal('');
+  protected readonly searchTerm = signal('');
 
   protected readonly filteredRecipes = computed(() => {
     const term = this.searchTerm().toLowerCase();
+    // 1. Get the array of recipes by CALLING the signal from the service.
+    const recipes = this.recipeService.allRecipes();
 
     if(!term) {
-      return this.allRecipes();
+      // 2. Return the full array if there's no search term.
+      return recipes;
     }
 
-    return this.allRecipes().filter(recipe => 
+    // 3. Return the filtered array.
+    return recipes.filter(recipe =>
       recipe.name.toLowerCase().includes(term)
-    )
+    );
   })
 }
