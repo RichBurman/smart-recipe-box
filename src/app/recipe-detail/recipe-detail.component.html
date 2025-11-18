@@ -10,5 +10,9 @@
         <button (click)="decrement()">-</button>
     </div>
     
-    <pre> {{ adjustedIngredients() | json }}</pre>
+    <ul>
+        @for (i of adjustedIngredients(); track i) {
+            <li>{{ i.name }} - {{ i.quantity }} {{ i.unit }}</li>
+        }
+    </ul>
 </div>
