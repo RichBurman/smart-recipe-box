@@ -1,12 +1,13 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { RecipeModel } from './models';
 import { MOCK_RECIPES } from './mock-recipes';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, JsonPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -15,6 +16,16 @@ export class AppComponent {
   protected recipe = signal(MOCK_RECIPES[1]);
 
   protected serving = signal(1);
+
+  protected readonly adjustedIngredients = computed(() => {
+    const ingredient = this.recipe().ingredients
+    return ingredient.map(ing => {
+      return {
+        ...ing, 
+        quantity: ing.quantity * this.serving()
+      };
+    });
+  });
 
   protected button1() {
     console.log('First Button clicked!')
