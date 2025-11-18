@@ -1,13 +1,6 @@
-<button (click)="button1()">Button 1</button>
-<button (click)="button2()">Button 2</button>
+<div>
+  <button (click)="setRecipe(0)">Show Carbonara</button>
+  <button (click)="setRecipe(1)">Show Caprese Salad</button>
+</div>
 
-<p> {{ recipe().name }}</p>
-<p>{{ recipe().description }}</p>
-<img [src]="recipe().imgUrl" [alt]="recipe().name">
-
-<p>Current Number of Servings: {{ serving() }}</p>
-
-<button (click)="increment()">+</button>
-<button (click)="decrement()">-</button>
-
-<pre> {{ adjustedIngredients() | json }}</pre>
+<app-recipe-detail [recipe]="activeRecipe()" />
