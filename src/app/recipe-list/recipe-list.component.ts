@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { MOCK_RECIPES } from '../mock-recipes';
 import { RecipeDetail } from '../recipe-detail/recipe-detail.component';
+import { RecipeModel } from '../models';
 
 @Component({
   selector: 'app-recipe-list',
@@ -10,9 +11,11 @@ import { RecipeDetail } from '../recipe-detail/recipe-detail.component';
   styleUrl: './recipe-list.component.css',
 })
 export class RecipeList {
-  protected activeRecipe = signal(MOCK_RECIPES[1]);
+ 
+  protected allRecipes = signal(MOCK_RECIPES);
+  protected activeRecipe = signal(this.allRecipes()[0]);
 
-  protected setRecipe(recipeIndex: number): void {
-    this.activeRecipe.set(MOCK_RECIPES[recipeIndex]);
+  protected setActiveRecipe(recipe: RecipeModel): void {
+    this.activeRecipe.set(recipe);
   }
 }
