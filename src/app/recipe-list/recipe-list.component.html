@@ -1,13 +1,16 @@
-<div>
-  @for (recipe of allRecipes(); track recipe.id) {
-  <button (click)="setActiveRecipe(recipe)">
-    {{ recipe.name }}
-
-    @if (recipe.isFavorite) {
-    <span>★</span>
-    }
-  </button>
-  }
-
-  <app-recipe-detail [recipe]="activeRecipe()" />
+<div class="search-container">
+    <label for="search-input">Search Recipes</label>
+    <input id="search-input" [(ngModel)]="searchTerm">
 </div>
+
+<div>
+    @for (recipe of filteredRecipes(); track recipe.id) {
+        <button (click)="setActiveRecipe(recipe)">
+            {{ recipe.name }}
+
+            @if (recipe.isFavorite) {
+                <span>★</span>
+            }
+        </button>
+    }
+<app-recipe-detail [recipe]="activeRecipe()" />
